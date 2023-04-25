@@ -8,7 +8,7 @@ abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
   K selector(T viewModel);
   Widget? get staticChild => null;
   bool shouldRebuild(K v1, K v2) => v1 != v2;
-  Widget build(BuildContext context, K value);
+  Widget build(BuildContext context, K value, T viewModel);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -31,8 +31,8 @@ class _DataProviderElement<T extends ChangeNotifier, K>
       shouldRebuild: widget.shouldRebuild,
       selector: (BuildContext context, T viewModel) =>
           widget.selector(viewModel),
-      builder: (BuildContext _, K value, Widget? child) =>
-          widget.build(this, value),
+      builder: (BuildContext _, K value, T viewModel, Widget? child) =>
+          widget.build(this, value, viewModel),
       child: widget.staticChild,
     );
   }
